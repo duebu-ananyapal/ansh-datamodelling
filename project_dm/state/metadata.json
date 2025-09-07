@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "config": {
+    "bundle": {
+      "git": {
+        "branch": "main",
+        "origin_url": "https://github.com/duebu-ananyapal/ansh-datamodelling.git",
+        "commit": "4d7b78ba94e688cd4d003b196ec68b5ff19a7b80",
+        "bundle_root_path": "project_dm"
+      }
+    },
+    "workspace": {
+      "file_path": "/Workspace/Users/duebu.ananyapal@gmail.com/ansh-datamodelling/project_dm/files"
+    },
+    "resources": {}
+  }
+}
