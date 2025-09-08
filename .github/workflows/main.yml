@@ -18,7 +18,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install Databricks CLI
-        uses: curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+        run: curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
 
       - name: Configure databricks
         run: |
@@ -52,7 +52,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install Databricks CLI
-        uses: curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+        run: curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
 
       - name: Configure databricks
         run: |
