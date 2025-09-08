@@ -18,6 +18,7 @@ targets:
     default: true
     workspace:
       host: https://adb-1772722130468418.18.azuredatabricks.net
+      root_path: /Workspace/Users/duebu.ananyapal@gmail.com/ansh-datamodelling/${bundle.name}/${bundle.target}
 
     presets:
       # Set dynamic_version: true on all artifacts of type "whl".
