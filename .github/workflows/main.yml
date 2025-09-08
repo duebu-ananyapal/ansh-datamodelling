@@ -31,9 +31,6 @@ jobs:
           azure_tenant_id = ${{ secrets.AZURE_TENANT_ID }}
           azure_client_secret = ${{ secrets.AZURE_CLIENT_SECRET }}
           EOF
-
-      - name: Who am I?
-        run: databricks current-user get --profile TEST
         
       - name: Deploy to TEST
         working-directory: project_dm
