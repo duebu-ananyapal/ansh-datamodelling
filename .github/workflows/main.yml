@@ -32,9 +32,9 @@ jobs:
           azure_client_secret = ${{ secrets.AZURE_CLIENT_SECRET }}
           EOF
 
-      - name: Debug Databricks profile
-        run: cat ~/.databrickscfg
-
+      - name: Who am I?
+        run: databricks current-user get --profile TEST
+        
       - name: Deploy to TEST
         working-directory: project_dm
         run: |
