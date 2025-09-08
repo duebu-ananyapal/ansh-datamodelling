@@ -32,7 +32,7 @@ jobs:
           EOF
 
       - name: Deploy to TEST
-        working-directory: ansh-datamodelling/project_dm
+        working-directory: project_dm
         run: |
           databricks bundle deploy \
             --target test \
@@ -67,7 +67,7 @@ jobs:
           EOF
 
       - name: Deploy to PROD
-        working-directory: ansh-datamodelling/project_dm
+        working-directory: project_dm
         run: |
           databricks bundle deploy \
             --target prod \
