@@ -34,7 +34,7 @@ targets:
       # We explicitly deploy to /Workspace/Users/duebu.ananyapal@gmail.com to make sure we only have a single copy.
       root_path: /Workspace/Shared/ansh_datamodelling/${bundle.name}
     permissions:
-      - service_principal_name: da0daa96-4949-463c-b6a6-34c647bae175
+      - service_principal_name: 8eeb6ab2-1596-4d3a-b6e3-c380fd46b76a
         level: CAN_MANAGE
       
   test:
@@ -44,6 +44,6 @@ targets:
       # We explicitly deploy to /Workspace/Users/duebu.ananyapal@gmail.com to make sure we only have a single copy.
       root_path: /Workspace/Shared/ansh_datamodelling/${bundle.name}
     permissions:
-      - service_principal_name: 8eeb6ab2-1596-4d3a-b6e3-c380fd46b76a
+      - service_principal_name: da0daa96-4949-463c-b6a6-34c647bae175
         level: CAN_MANAGE
   
