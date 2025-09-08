@@ -1,74 +1,72 @@
 name: CD workflow
-
 on: 
   push:
     branches:
       - 'main'
+jobs:
+  cd-deployment-test:
+    name: Deploy to TEST
+    runs-on: ubuntu-latest
+    environment: test
+    steps: 
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-  jobs:
-    cd-deployment-test:
-      name: Deploy to TEST
-      runs-on: ubuntu-latest
-      environment: test
-      steps: 
-        - name: Checkout code
-          uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with: 
+          python-version: '3.11'
 
-        - name: Setup Python
-          uses: actions/setup-python@v4
-          with: 
-            python-version: '3.11'
+      - name: Install Databricks CLI
+        uses: curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
 
-        - name: Install Databricks CLI
-          uses: curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+      - name: Configure databricks
+        run: |
+          # Write out the profile (here called 'TEST')
+          cat <<EOF > ~/.databrickscfg
+          [TEST]
+          host  = https://adb-3197241655127391.11.azuredatabricks.net/
+          azure_client_id = ${{ secrets.AZURE_CLIENT_ID }}
+          azure_tenant_id = ${{ secrets.AZURE_TENANT_ID }}
+          azure_client_secret = ${{ secrets.AZURE_CLIENT_SECRET }}
+          EOF
 
-        - name: Configure databricks
-          run: |
-            # Write out the profile (here called 'TEST')
-            cat <<EOF > ~/.databrickscfg
-            [TEST]
-            host  = https://adb-3197241655127391.11.azuredatabricks.net/
-            azure_client_id = ${{ secrets.AZURE_CLIENT_ID }}
-            azure_tenant_id = ${{ secrets.AZURE_TENANT_ID }}
-            azure_client_secret = ${{ secrets.AZURE_CLIENT_SECRET }}
-            EOF
-
-        - name: Deploy to TEST
-          run: |
-            databricks bundle deploy \
-              -- target test \
-              -- profile TEST
+      - name: Deploy to TEST
+        run: |
+          databricks bundle deploy \
+            -- target test \
+            -- profile TEST
             
-    cd-deployment-prod:
-      name: deployment job
-      needs: cd-deployment-test
-      runs-on: ubuntu-latest
-      environment: prod
-      steps: 
-        - name: Checkout code
-          uses: actions/checkout@v3
+  cd-deployment-prod:
+    name: deployment job
+    needs: cd-deployment-test
+    runs-on: ubuntu-latest
+    environment: prod
+    steps: 
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-        - name: Setup Python
-          uses: actions/setup-python@v4
-          with: 
-            python-version: '3.11'
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with: 
+          python-version: '3.11'
 
-        - name: Install Databricks CLI
-          uses: curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+      - name: Install Databricks CLI
+        uses: curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
 
-        - name: Configure databricks
-          run: |
-            # Write out the profile (here called 'TEST')
-            cat <<EOF > ~/.databrickscfg
-            [PROD]
-            host  = https://adb-4377997726942656.16.azuredatabricks.net/
-            azure_client_id = ${{ secrets.AZURE_CLIENT_ID }}
-            azure_tenant_id = ${{ secrets.AZURE_TENANT_ID }}
-            azure_client_secret = ${{ secrets.AZURE_CLIENT_SECRET }}
-            EOF
+      - name: Configure databricks
+        run: |
+          # Write out the profile (here called 'TEST')
+          cat <<EOF > ~/.databrickscfg
+          [PROD]
+          host  = https://adb-4377997726942656.16.azuredatabricks.net/
+          azure_client_id = ${{ secrets.AZURE_CLIENT_ID }}
+          azure_tenant_id = ${{ secrets.AZURE_TENANT_ID }}
+          azure_client_secret = ${{ secrets.AZURE_CLIENT_SECRET }}
+          EOF
 
-        - name: Deploy to PROD
-          run: |
-            databricks bundle deploy \
-              -- target prod \
-              -- profile PROD
+      - name: Deploy to PROD
+        run: |
+          databricks bundle deploy \
+            -- target prod \
+            -- profile PROD
