@@ -36,8 +36,7 @@ targets:
     permissions:
       - service_principal_name: da0daa96-4949-463c-b6a6-34c647bae175
         level: CAN_MANAGE
-    run_as:
-      service_principal_name: da0daa96-4949-463c-b6a6-34c647bae175
+      
   test:
     mode: production
     workspace:
@@ -47,5 +46,4 @@ targets:
     permissions:
       - service_principal_name: 8eeb6ab2-1596-4d3a-b6e3-c380fd46b76a
         level: CAN_MANAGE
-    run_as:
-      service_principal_name: 8eeb6ab2-1596-4d3a-b6e3-c380fd46b76a
+  
